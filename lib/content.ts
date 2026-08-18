@@ -3,6 +3,8 @@ export const site = {
   tagline: "Where Ideas Become Digital Products.",
   domain: "visionbrew.in",
   email: "visionbrewtech@gmail.com",
+  phone: "+91 86105 70099",
+  phoneHref: "tel:+918610570099",
   url: "https://visionbrew.in",
   description:
     "VisionBrew helps businesses transform ideas, manual processes, and complex requirements into powerful digital experiences and software solutions.",
@@ -16,6 +18,7 @@ export const navLinks = [
 ] as const;
 
 export const socialLinks = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/vision-brew-in" },
   { label: "Instagram", href: "https://www.instagram.com/visionbrew.in" },
 ] as const;
 
@@ -202,21 +205,30 @@ export const differentiators = [
   },
 ] as const;
 
-export const technologies = [
-  "Laravel",
-  "PHP",
-  "React",
-  "Next.js",
-  "Angular",
-  "Node.js",
-  "Python",
-  "MySQL",
-  "PostgreSQL",
-  "MongoDB",
-  "AWS",
-  "Docker",
-  "AI/LLM APIs",
+export const technologyGroups = [
+  {
+    label: "Frontend",
+    items: ["React", "Next.js", "TypeScript", "Angular", "Tailwind CSS"],
+  },
+  {
+    label: "Backend",
+    items: ["Node.js", "NestJS", "Laravel", "PHP", "Python"],
+  },
+  {
+    label: "Data",
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
+  },
+  {
+    label: "Cloud & delivery",
+    items: ["AWS", "Docker", "Kubernetes", "Vercel", "GitHub Actions"],
+  },
+  {
+    label: "AI",
+    items: ["OpenAI / LLM APIs", "LangChain", "RAG pipelines"],
+  },
 ] as const;
+
+export const technologies = technologyGroups.flatMap((group) => group.items);
 
 export const transformation = {
   before: [
@@ -393,13 +405,6 @@ export const projectTypes = [
   "Not sure yet",
 ] as const;
 
-export const budgetRanges = [
-  "Under ₹5L",
-  "₹5L – ₹15L",
-  "₹15L – ₹40L",
-  "₹40L+",
-  "Let’s discuss",
-] as const;
 
 export const about = {
   headline: "Good technology starts with a clear vision.",

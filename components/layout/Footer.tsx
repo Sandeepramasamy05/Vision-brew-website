@@ -1,15 +1,12 @@
 import Link from "next/link";
 import { Instagram, Linkedin } from "lucide-react";
-import { navLinks, site } from "@/lib/content";
+import { navLinks, site, socialLinks } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 
-const social = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/visionbrew.in",
-    Icon: Instagram,
-  },
-];
+const socialIcons = {
+  LinkedIn: Linkedin,
+  Instagram: Instagram,
+} as const;
 
 export function Footer() {
   return (
@@ -41,25 +38,22 @@ export function Footer() {
             <div>
               <p className="mb-4 text-[11px] uppercase tracking-[0.2em] text-muted">Connect</p>
               <ul className="space-y-2.5">
-                <li>
-                  <span className="inline-flex items-center gap-2 text-sm text-mist/90">
-                    <Linkedin size={14} />
-                    LinkedIn
-                  </span>
-                </li>
-                {social.map(({ label, href, Icon }) => (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-mist/90 transition-colors hover:text-teal-bright"
-                    >
-                      <Icon size={14} />
-                      {label}
-                    </a>
-                  </li>
-                ))}
+                {socialLinks.map(({ label, href }) => {
+                  const Icon = socialIcons[label];
+                  return (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-mist/90 transition-colors hover:text-teal-bright"
+                      >
+                        {Icon ? <Icon size={14} /> : null}
+                        {label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
             <div className="col-span-2 sm:col-span-1">
@@ -69,6 +63,12 @@ export function Footer() {
                 className="block text-sm text-mist/90 transition-colors hover:text-teal-bright"
               >
                 {site.email}
+              </a>
+              <a
+                href={site.phoneHref}
+                className="mt-2 block text-sm text-mist/90 transition-colors hover:text-teal-bright"
+              >
+                {site.phone}
               </a>
               <a
                 href={`https://${site.domain}`}

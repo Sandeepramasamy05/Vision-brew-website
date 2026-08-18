@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { budgetRanges, projectTypes, site } from "@/lib/content";
+import { projectTypes, site } from "@/lib/content";
 import { Button } from "@/components/ui/Button";
 
 type Fields = {
@@ -10,8 +10,7 @@ type Fields = {
   email: string;
   phone: string;
   projectType: string;
-  budget: string;
-  description: string;
+  purpose: string;
 };
 
 type Errors = Partial<Record<keyof Fields, string>>;
@@ -22,8 +21,7 @@ const empty: Fields = {
   email: "",
   phone: "",
   projectType: "",
-  budget: "",
-  description: "",
+  purpose: "",
 };
 
 function validate(values: Fields): Errors {
@@ -33,9 +31,10 @@ function validate(values: Fields): Errors {
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email))
     errors.email = "That email does not look valid.";
   if (!values.projectType) errors.projectType = "Select a project type.";
-  if (!values.description.trim()) errors.description = "Tell us a little about the work.";
-  else if (values.description.trim().length < 20)
-    errors.description = "A few more sentences will help us prepare.";
+  if (!values.purpose.trim())
+    errors.purpose = "Tell us which business this is for and why you need it.";
+  else if (values.purpose.trim().length < 20)
+    errors.purpose = "A few more sentences will help us prepare.";
   return errors;
 }
 
@@ -134,48 +133,34 @@ export function ContactForm() {
             onChange={(e) => update("phone", e.target.value)}
           />
         </Field>
-        <Field label="Project type" error={errors.projectType} htmlFor="projectType">
-          <select
-            id="projectType"
-            name="projectType"
-            className={`${fieldClass} appearance-none`}
-            value={values.projectType}
-            onChange={(e) => update("projectType", e.target.value)}
-          >
-            <option value="">Select</option>
-            {projectTypes.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </Field>
-        <Field label="Budget range" htmlFor="budget">
-          <select
-            id="budget"
-            name="budget"
-            className={`${fieldClass} appearance-none`}
-            value={values.budget}
-            onChange={(e) => update("budget", e.target.value)}
-          >
-            <option value="">Select</option>
-            {budgetRanges.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </Field>
+        <div className="sm:col-span-2">
+          <Field label="Project type" error={errors.projectType} htmlFor="projectType">
+            <select
+              id="projectType"
+              name="projectType"
+              className={`${fieldClass} appearance-none`}
+              value={values.projectType}
+              onChange={(e) => update("projectType", e.target.value)}
+            >
+              <option value="">Select</option>
+              {projectTypes.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </Field>
+        </div>
       </div>
-      <Field label="Project description" error={errors.description} htmlFor="description">
+      <Field label="What is this for?" error={errors.purpose} htmlFor="purpose">
         <textarea
-          id="description"
-          name="description"
+          id="purpose"
+          name="purpose"
           rows={6}
           className={`${fieldClass} min-h-[160px] resize-y`}
-          placeholder="What are you trying to solve? Who is it for? What exists today?"
-          value={values.description}
-          onChange={(e) => update("description", e.target.value)}
+          placeholder="Which business is this for? Why do you need it now — what problem should the project solve?"
+          value={values.purpose}
+          onChange={(e) => update("purpose", e.target.value)}
         />
       </Field>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

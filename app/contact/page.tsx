@@ -27,6 +27,12 @@ export default function ContactPage() {
           >
             {site.email}
           </a>
+          <a
+            href={site.phoneHref}
+            className="mt-3 block font-display text-xl tracking-tight text-mist hover:text-teal-bright"
+          >
+            {site.phone}
+          </a>
           <p className="mt-8 max-w-xs text-sm leading-relaxed text-muted">
             Based in India. We work with teams across the country — and remotely where it makes
             sense.
