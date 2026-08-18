@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #0b0b0b;
+  --charcoal: #161616;
+  --line: #262626;
+  --mist: #edeae3;
+  --muted: #9a958c;
+  --teal: #0f766e;
+  --teal-bright: #14b8a6;
+  --paper: #edeae3;
+}
+
+html {
+  background: var(--ink);
+  color: var(--mist);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ink);
+  color: var(--mist);
+  overflow-x: hidden;
+  font-feature-settings: "ss01" on, "cv11" on;
+}
+
+::selection {
+  background: var(--teal);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal-bright);
+  outline-offset: 3px;
+}
+
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (max-width: 767px) {
+  .marquee-track {
+    animation-duration: 48s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .marquee-track,
+  .animate-marquee,
+  .animate-marquee-slow,
+  .animate-dash,
+  .animate-pulseNode {
+    animation: none !important;
+  }
+}
