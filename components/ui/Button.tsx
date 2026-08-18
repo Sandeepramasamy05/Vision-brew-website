@@ -20,6 +20,7 @@ type ButtonProps = {
   className?: string;
   type?: "button" | "submit";
   onClick?: () => void;
+  disabled?: boolean;
 };
 
 export function Button({
@@ -29,8 +30,9 @@ export function Button({
   className = "",
   type = "button",
   onClick,
+  disabled = false,
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center min-h-11 px-6 py-3 text-sm font-medium tracking-wide transition-colors duration-300 ${variants[variant]} ${className}`;
+  const classes = `inline-flex items-center justify-center min-h-11 px-6 py-3 text-sm font-medium tracking-wide transition-colors duration-300 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`;
 
   if (href) {
     return (
@@ -41,7 +43,7 @@ export function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {children}
     </button>
   );

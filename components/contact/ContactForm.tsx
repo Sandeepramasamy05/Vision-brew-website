@@ -45,29 +45,56 @@ export function ContactForm() {
   const [values, setValues] = useState<Fields>(empty);
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [serverError, setServerError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
 
   function update<K extends keyof Fields>(key: K, value: Fields[K]) {
     setValues((v) => ({ ...v, [key]: value }));
     setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setServerError("");
     const next = validate(values);
     setErrors(next);
-    if (Object.keys(next).length === 0) setSubmitted(true);
+    if (Object.keys(next).length > 0) return;
+
+    setSending(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, website: honeypot }),
+      });
+      const data = (await res.json()) as { ok?: boolean; error?: string };
+      if (!res.ok || !data.ok) {
+        setServerError(data.error || "Could not send the message. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setServerError("Could not send the message. Please try again or email us directly.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
     return (
       <div className="border border-line bg-charcoal p-8 md:p-12">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-teal">Preview</p>
+        <p className="text-[11px] uppercase tracking-[0.2em] text-teal">Received</p>
         <h2 className="mt-4 font-display text-3xl tracking-tight text-mist md:text-4xl">
           Thank you, {values.name.split(" ")[0]}.
         </h2>
         <p className="mt-4 max-w-lg text-base leading-relaxed text-muted">
-          This form is currently a preview and does not send your message yet. To reach
-          VisionBrew now, email us directly at{" "}
+          Your message is with us. We will reply at {values.email} — usually within two working
+          days. If it is urgent, call{" "}
+          <a className="text-mist underline-offset-4 hover:underline" href={site.phoneHref}>
+            {site.phone}
+          </a>{" "}
+          or write to{" "}
           <a className="text-mist underline-offset-4 hover:underline" href={`mailto:${site.email}`}>
             {site.email}
           </a>
@@ -89,7 +116,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-6">
+    <form onSubmit={onSubmit} noValidate className="relative space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
         <Field label="Name" error={errors.name} htmlFor="name">
           <input
@@ -163,13 +190,28 @@ export function ContactForm() {
           onChange={(e) => update("purpose", e.target.value)}
         />
       </Field>
+      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden>
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <Button type="submit" className="w-full sm:w-auto">
-          Send message
+        <Button type="submit" className="w-full sm:w-auto" disabled={sending}>
+          {sending ? "Sending…" : "Send message"}
         </Button>
-        <p className="text-xs text-muted">
-          Form preview only. Please use {site.email} for now.
-        </p>
+        {serverError ? (
+          <p className="text-xs text-teal-bright" role="alert">
+            {serverError}
+          </p>
+        ) : (
+          <p className="text-xs text-muted">We reply to the email you enter above.</p>
+        )}
       </div>
     </form>
   );
