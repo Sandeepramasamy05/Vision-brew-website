@@ -1,6 +1,5 @@
 import { AboutTeaser } from "@/components/home/AboutTeaser";
 import { Differentiators } from "@/components/home/Differentiators";
-import { FeaturedWork } from "@/components/home/FeaturedWork";
 import { Hero } from "@/components/home/Hero";
 import { Process } from "@/components/home/Process";
 import { ServicesGrid } from "@/components/home/ServicesGrid";
@@ -15,7 +14,6 @@ export default function HomePage() {
       <Hero />
       <Marquee />
       <ServicesGrid />
-      <FeaturedWork />
       <Transformation />
       <Process />
       <Differentiators />

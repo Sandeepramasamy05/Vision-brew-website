@@ -62,13 +62,13 @@ export function ContactForm() {
   if (submitted) {
     return (
       <div className="border border-line bg-charcoal p-8 md:p-12">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-teal">Received</p>
+        <p className="text-[11px] uppercase tracking-[0.2em] text-teal">Preview</p>
         <h2 className="mt-4 font-display text-3xl tracking-tight text-mist md:text-4xl">
           Thank you, {values.name.split(" ")[0]}.
         </h2>
         <p className="mt-4 max-w-lg text-base leading-relaxed text-muted">
-          We have your note. Someone from VisionBrew will reply at {values.email} — usually
-          within two working days. If it is urgent, write to{" "}
+          This form is currently a preview and does not send your message yet. To reach
+          VisionBrew now, email us directly at{" "}
           <a className="text-mist underline-offset-4 hover:underline" href={`mailto:${site.email}`}>
             {site.email}
           </a>
@@ -182,7 +182,9 @@ export function ContactForm() {
         <Button type="submit" className="w-full sm:w-auto">
           Send message
         </Button>
-        <p className="text-xs text-muted">No backend on this prototype — success is shown in place.</p>
+        <p className="text-xs text-muted">
+          Form preview only. Please use {site.email} for now.
+        </p>
       </div>
     </form>
   );

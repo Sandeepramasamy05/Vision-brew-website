@@ -11,15 +11,12 @@ export const site = {
 export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
 export const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/visionbrew" },
-  { label: "Instagram", href: "https://www.instagram.com/visionbrew" },
-  { label: "GitHub", href: "https://github.com/visionbrew" },
+  { label: "Instagram", href: "https://www.instagram.com/visionbrew.in" },
 ] as const;
 
 export const capabilities = [

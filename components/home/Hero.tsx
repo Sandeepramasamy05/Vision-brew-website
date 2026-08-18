@@ -19,8 +19,8 @@ export function Hero() {
             <Button href="/contact" className="w-full sm:w-auto">
               Start a Project
             </Button>
-            <Button href="/work" variant="secondary" className="w-full sm:w-auto">
-              Explore Our Work
+            <Button href="/services" variant="secondary" className="w-full sm:w-auto">
+              Explore Services
             </Button>
           </div>
         </div>
