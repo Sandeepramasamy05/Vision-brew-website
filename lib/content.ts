@@ -2,7 +2,7 @@ export const site = {
   name: "VisionBrew",
   tagline: "Where Ideas Become Digital Products.",
   domain: "visionbrew.in",
-  email: "hello@visionbrew.in",
+  email: "visionbrewtech@gmail.com",
   url: "https://visionbrew.in",
   description:
     "VisionBrew helps businesses transform ideas, manual processes, and complex requirements into powerful digital experiences and software solutions.",

@@ -41,4 +41,4 @@ npm start
 
 ## Contact
 
-hello@visionbrew.in
+visionbrewtech@gmail.com
