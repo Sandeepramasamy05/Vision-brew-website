@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { Github, Instagram, Linkedin } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 import { navLinks, site } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 
 const social = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/visionbrew", Icon: Linkedin },
-  { label: "Instagram", href: "https://www.instagram.com/visionbrew", Icon: Instagram },
-  { label: "GitHub", href: "https://github.com/visionbrew", Icon: Github },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/visionbrew.in",
+    Icon: Instagram,
+  },
 ];
 
 export function Footer() {
@@ -39,6 +41,12 @@ export function Footer() {
             <div>
               <p className="mb-4 text-[11px] uppercase tracking-[0.2em] text-muted">Connect</p>
               <ul className="space-y-2.5">
+                <li>
+                  <span className="inline-flex items-center gap-2 text-sm text-mist/90">
+                    <Linkedin size={14} />
+                    LinkedIn
+                  </span>
+                </li>
                 {social.map(({ label, href, Icon }) => (
                   <li key={label}>
                     <a
